@@ -35,7 +35,7 @@ function handle_message($connection, $data)
     foreach($ws_worker->connections as $conn)
     {
         $conn->send(date("Y-m-d h:i:s")."\n");
-        $conn->send("user[{$connection->uid}] said: $data\n");
+        $conn->send("user[{$connection->uid}] said: $data");
     }
 }
 
