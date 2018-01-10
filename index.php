@@ -24,7 +24,7 @@ function handle_connection($connection)
     $connection->uid = ++$global_uid;
     echo "新人加入(userId:$connection->uid)\n";
     foreach($ws_worker->connections as $conn){
-        $conn->send("user[{$connection->uid}]加入聊天室");
+        $conn->send("user[{$connection->uid}]加入聊天室\n");
     }
 }
 
@@ -35,7 +35,7 @@ function handle_message($connection, $data)
     foreach($ws_worker->connections as $conn)
     {
         $conn->send(date("Y-m-d h:i:s")."\n");
-        $conn->send("user[{$connection->uid}] said: $data");
+        $conn->send("user[{$connection->uid}] said: $data\n");
     }
 }
 
@@ -45,14 +45,14 @@ function handle_close($connection)
     global $ws_worker;
     foreach($ws_worker->connections as $conn)
     {
-        $conn->send("user[{$connection->uid}] 退出了聊天室");
+        $conn->send("user[{$connection->uid}] 退出了聊天室\n");
         echo "用户退出(userId:$connection->uid)\n";
     }
 }
 
 
 
-$ws_worker->count = 4;
+$ws_worker->count = 1;
 $ws_worker->name = '李景秋测试的workman使用';
 $ws_worker->onConnect = 'handle_connection';
 $ws_worker->onMessage = 'handle_message';
