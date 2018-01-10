@@ -4,7 +4,7 @@ use Workerman\Worker;
 require_once __DIR__.'/Autoloader.php';
 
 $global_uid = 0;
-
+date_default_timezone_set("Asia/Shanghai");
 // 当客户端连上来时分配uid，并保存连接，并通知所有客户端
 function handle_connection($connection)
 {
@@ -22,6 +22,7 @@ function handle_message($connection, $data)
     global $ws_worker;
     foreach($ws_worker->connections as $conn)
     {
+        $conn->send(date("Y-m-d h:i:s")."\n");
         $conn->send("user[{$connection->uid}] said: $data");
     }
 }
