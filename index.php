@@ -22,7 +22,7 @@ function handle_connection($connection)
 {
     global $ws_worker, $global_uid;
     $connection->uid = ++$global_uid;
-    echo "新人加入";
+    echo "新人加入(userId:$connection->uid)\n";
     foreach($ws_worker->connections as $conn){
         $conn->send("user[{$connection->uid}]加入聊天室");
     }
@@ -46,6 +46,7 @@ function handle_close($connection)
     foreach($ws_worker->connections as $conn)
     {
         $conn->send("user[{$connection->uid}] 退出了聊天室");
+        echo "用户退出(userId:$connection->uid)\n";
     }
 }
 
