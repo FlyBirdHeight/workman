@@ -9,8 +9,11 @@ $global_uid = 0;
 function handle_connection($connection)
 {
     global $ws_worker, $global_uid;
-    // 为这个连接分配一个uid
     $connection->uid = ++$global_uid;
+    echo "新人加入";
+    foreach($ws_worker->connections as $conn){
+        $conn->send("user[{$connection->uid}]加入聊天室");
+    }
 }
 
 // 当客户端发送消息过来时，转发给所有人
