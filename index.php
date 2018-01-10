@@ -39,6 +39,7 @@ function handle_close($connection)
 $ws_worker = new Worker("tcp://0.0.0.0:2347");
 
 $ws_worker->count = 4;
+$ws_worker->name = '李景秋测试的workman使用';
 $ws_worker->onConnect = 'handle_connection';
 $ws_worker->onMessage = 'handle_message';
 $ws_worker->onClose = 'handle_close';
