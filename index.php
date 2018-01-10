@@ -1,7 +1,7 @@
 <?php
 
 use Workerman\Worker;
-require_once __DIR__.'./Autoloader.php';
+require_once __DIR__.'/Autoloader.php';
 
 $ws_worker = new Worker("tcp://0.0.0.0:2347");
 
