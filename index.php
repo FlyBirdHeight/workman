@@ -36,6 +36,7 @@ function handle_message($connection, $data)
     {
         $conn->send(date("Y-m-d h:i:s")."\n");
         $conn->send("user[{$connection->uid}] said: $data");
+        $conn->send("编辑消息（回车发送）：");
     }
 }
 
