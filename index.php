@@ -34,7 +34,7 @@ function handle_message($connection, $data)
     global $ws_worker;
     foreach($ws_worker->connections as $conn)
     {
-        $conn->send(date("Y-m-d h:i:s")."\n");
+        $conn->send("\n".date("Y-m-d h:i:s")."\n");
         $conn->send("user[{$connection->uid}] said: $data");
         $conn->send("编辑消息（回车发送）：");
     }
