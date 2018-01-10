@@ -12,7 +12,7 @@ $global_uid = 0;
 // 当客户端连上来时分配uid，并保存连接，并通知所有客户端
 function handle_connection($connection)
 {
-    global $text_worker, $global_uid;
+    global $ws_worker, $global_uid;
     // 为这个连接分配一个uid
     $connection->uid = ++$global_uid;
 }
@@ -26,8 +26,8 @@ $ws_worker->onMessage = function($connection, $data)
 // 当客户端断开时，广播给所有客户端
 function handle_close($connection)
 {
-    global $text_worker;
-    foreach($text_worker->connections as $conn)
+    global $ws_worker;
+    foreach($ws_worker->connections as $conn)
     {
         $conn->send("user[{$connection->uid}] 退出了聊天室");
     }
