@@ -5,6 +5,8 @@ require_once __DIR__.'/Autoloader.php';
 
 $global_uid = 0;
 date_default_timezone_set("Asia/Shanghai");
+// 所有的打印输出全部保存在/tmp/stdout.log文件中
+Worker::$stdoutFile = '/tmp/stdout.log';
 // 当客户端连上来时分配uid，并保存连接，并通知所有客户端
 function handle_connection($connection)
 {
