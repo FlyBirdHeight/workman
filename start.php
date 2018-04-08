@@ -17,7 +17,16 @@ $ws_worker = new Worker("websocket://0.0.0.0:2347");
 
 // 启动4个进程对外提供服务
 $ws_worker->count = 4;
-
+function handle_connection($connection)
+{
+    global $ws_worker, $global_uid;
+    $connection->maxSendBufferSize = 1024000;
+    $connection->uid = ++$global_uid;
+    echo "新人加入(userId:$connection->uid)\n";
+    foreach($ws_worker->connections as $conn){
+        $conn->send("user[{$connection->uid}]加入聊天室\n");
+    }
+}
 // 当收到客户端发来的数据后
 $ws_worker->onMessage = function($connection, $data)
 {
