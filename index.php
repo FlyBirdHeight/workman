@@ -40,7 +40,7 @@ function handle_connection($connection)
 function handle_message($connection, $data)
 {
     global $ws_worker,$clients;
-    echo $data;
+    print_r($data);
 //    $dataInfo = $data.type;
 //    echo $dataInfo;
 //    foreach($ws_worker->connections as $conn)
