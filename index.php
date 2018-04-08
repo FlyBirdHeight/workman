@@ -41,7 +41,7 @@ function handle_message($connection, $data)
 {
     global $ws_worker,$clients;
     $data = json_encode($data);
-    print_r(is_string($data));
+    print_r($data);
 //    $dataInfo = $data.type;
 //    echo $dataInfo;
 //    foreach($ws_worker->connections as $conn)
