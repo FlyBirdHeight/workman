@@ -7,7 +7,7 @@
 use Workerman\Connection\AsyncTcpConnection;
 use Workerman\Worker;
 
-require 'workerman/Autoloader.php';
+require_once __DIR__.'/Autoloader.php';
 
 $clients = []; //保存客户端信息
 
