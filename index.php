@@ -40,6 +40,7 @@ function handle_connection($connection)
 function handle_message($connection, $data)
 {
     global $ws_worker,$clients;
+    $data = json_encode($data);
     print_r(is_string($data));
 //    $dataInfo = $data.type;
 //    echo $dataInfo;
