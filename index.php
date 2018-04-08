@@ -41,8 +41,8 @@ function handle_message($connection, $data)
 {
     global $ws_worker,$clients;
     echo $data;
-    $dataInfo = $data.type;
-    echo $dataInfo;
+//    $dataInfo = $data.type;
+//    echo $dataInfo;
 //    foreach($ws_worker->connections as $conn)
 //    {
 //        $messages = json_encode(['date'=>date("Y-m-d h:i:s"),'content'=>"user[{$connection->uid}] said: $data"]);
