@@ -2,7 +2,7 @@
 
 use Workerman\Worker;
 require_once __DIR__.'/Autoloader.php';
-$ws_worker = new Worker("tcp://0.0.0.0:2347");
+$ws_worker = new Worker("websocket://0.0.0.0:2347");
 $global_uid = 0;
 date_default_timezone_set("Asia/Shanghai");
 // 所有的打印输出全部保存在/tmp/stdout.log文件中
