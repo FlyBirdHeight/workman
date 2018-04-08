@@ -21,6 +21,7 @@ $ws_worker->onWorkerStart = function($ws_worker)
 function handle_connection($connection)
 {
     global $ws_worker, $global_uid;
+    $connection->maxSendBufferSize = 1024000;
     $connection->uid = ++$global_uid;
     echo "新人加入(userId:$connection->uid)\n";
     foreach($ws_worker->connections as $conn){
@@ -36,7 +37,6 @@ function handle_message($connection, $data)
     {
         $conn->send("\n".date("Y-m-d h:i:s")."\n");
         $conn->send("user[{$connection->uid}] said: $data");
-        $conn->send("编辑消息（回车发送）：");
     }
 }
 
