@@ -35,8 +35,8 @@ function handle_message($connection, $data)
     global $ws_worker;
     foreach($ws_worker->connections as $conn)
     {
-        $conn->send("\n".date("Y-m-d h:i:s")."\n");
-        $conn->send("user[{$connection->uid}] said: $data");
+        $messages = json_encode(['date'=>date("Y-m-d h:i:s"),'content'=>"user[{$connection->uid}] said: $data"]);
+        $conn->send($messages);
     }
 }
 
