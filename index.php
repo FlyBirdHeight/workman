@@ -44,7 +44,7 @@ function handle_message($connection, $data)
     $ip = $connection->getRemoteIp();
     $port = $connection->getRemotePort();
     if($data['type'] == 'register'){ //代表是客户端认证
-        if(!array_key_exists($ip,$clients)){ //必须是之前没有注册过
+        if(!array_key_exists($ip.':'.$port,$clients)){ //必须是之前没有注册过
             $clients[$ip.':'.$port] = ['ipp'=>$ip.':'.$port,'name'=>$data['shopInfo']['id'],'conn'=>$connection,'Authorization'=>$data['token'],'userInfo'=>$data['userInfo']];
             $content = json_encode(['user'=>$data,'notice'=>'success']);
             $connection->send($content);
@@ -52,7 +52,7 @@ function handle_message($connection, $data)
             syncUsers();
         }
     }elseif($data['type'] == 'notify'){ //代表是客户端发送的通知消息
-        if(array_key_exists($connection->getRemoteIp(),$clients)){ //必须是之前验证通过的客户端
+        if(array_key_exists($ip.':'.$port,$clients)){ //必须是之前验证通过的客户端
             echo 'get notify:' .$data['notifyInfo']['content'] .PHP_EOL; //这是为了演示,控制台打印信息
             foreach($ws_worker->connections as $conn)
             {
@@ -61,7 +61,7 @@ function handle_message($connection, $data)
             }
         }
     }elseif ($data['type'] == 'getInfo'){
-        if(array_key_exists($connection->getRemoteIp(),$clients)){ //必须是之前验证通过的客户端
+        if(array_key_exists($ip.':'.$port,$clients)){ //必须是之前验证通过的客户端
             $data01 = $clients[$ip.':'.$port];
             echo $data['type'];
             print_r($data01);
