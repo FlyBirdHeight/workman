@@ -31,9 +31,6 @@ function handle_connection($connection)
     $connection->maxSendBufferSize = 1024000;
     $connection->uid = ++$global_uid;
     echo "新人加入(userId:$connection->uid)\n";
-//    foreach($ws_worker->connections as $conn){
-//        $conn->send("user[{$connection->uid}]加入聊天室\n");
-//    }
 }
 
 // 当客户端发送消息过来时
@@ -63,22 +60,27 @@ function handle_message($connection, $data)
     }elseif ($data['type'] == 'getInfo'){
         if(array_key_exists($ip.':'.$port,$clients)){ //必须是之前验证通过的客户端
             $data01 = $clients[$ip.':'.$port];
-//            $curl = curl_init();
-
-
+            $curlHttp = new \Utils\CurlHttp();
             switch ($data['typeInfo']){
                 case 1:
-                    $data01['conn']->send(json_encode(['status'=>'success']));
+                    $orders = $curlHttp->curlGet('allOrder/'.$data01['shopInfo']['id'],$data01['Authorization']);
+                    $data01['conn']->send(json_encode(['status'=>'success','orders'=>$orders]));
                     break;
                 case 2:
+                    $orders = $curlHttp->curlGet('UndoOrder/'.$data01['shopInfo']['id'],$data01['Authorization']);
+                    $data01['conn']->send(json_encode(['status'=>'success','orders'=>$orders]));
                     break;
                 case 3:
+                    $orders = $curlHttp->curlGet('getDoOrder/'.$data01['shopInfo']['id'],$data01['Authorization']);
+                    $data01['conn']->send(json_encode(['status'=>'success','orders'=>$orders]));
                     break;
                 case 4:
+                    $orders = $curlHttp->curlGet('getOrderUnpay/'.$data01['shopInfo']['id'],$data01['Authorization']);
+                    $data01['conn']->send(json_encode(['status'=>'success','orders'=>$orders]));
                     break;
                 case 5:
-                    break;
-                case 6:
+                    $orders = $curlHttp->curlGet('shopComment/'.$data01['shopInfo']['id'],$data01['Authorization']);
+                    $data01['conn']->send(json_encode(['status'=>'success','goods'=>$orders]));
                     break;
             }
         }
