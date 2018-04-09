@@ -61,9 +61,9 @@ function handle_message($connection, $data)
             }
         }
     }elseif ($data['type'] == 'getInfo'){
-        print_r($data['type']);
         if(array_key_exists($connection->getRemoteIp(),$clients)){ //必须是之前验证通过的客户端
             $data01 = $clients[$ip.':'.$port];
+            echo $data['type'];
             print_r($data01);
             $client = new \GuzzleHttp\Client(['headers'=>['Authorization'=>$data01['token']]]);
             switch ($data['typeInfo']){
