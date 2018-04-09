@@ -36,22 +36,17 @@ function handle_connection($connection)
 //    }
 }
 
-// 当客户端发送消息过来时，转发给所有人
+// 当客户端发送消息过来时
 function handle_message($connection, $data)
 {
     global $ws_worker,$clients;
     $data = json_decode($data,true);
     print_r($data['type']);
-//    foreach($ws_worker->connections as $conn)
-//    {
-//        $messages = json_encode(['date'=>date("Y-m-d h:i:s"),'content'=>"user[{$connection->uid}] said: $data"]);
-//        $conn->send($messages);
-//    }
     if($data['type'] == 'register'){ //代表是客户端认证
         $ip = $connection->getRemoteIp();
         $port = $connection->getRemotePort();
         if(!array_key_exists($ip,$clients)){ //必须是之前没有注册过
-            $clients[$ip.':'.$port] = ['ipp'=>$ip.':'.$port,'name'=>$data['shopInfo']['id'],'conn'=>$connection,'Authorization'=>$data['token']];
+            $clients[$ip.':'.$port] = ['ipp'=>$ip.':'.$port,'name'=>$data['shopInfo']['id'],'conn'=>$connection,'Authorization'=>$data['token'],'userInfo'=>$data['userInfo']];
             $content = json_encode(['user'=>$data,'notice'=>'success']);
             $connection->send($content);
             echo $ip .':'.$port.'==>'.$data['userInfo']['id'] .'==>login' . PHP_EOL;
@@ -67,19 +62,23 @@ function handle_message($connection, $data)
             }
         }
     }elseif ($data['type'] == 'getInfo'){
-        switch ($data['typeInfo']){
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-            case 6:
-                break;
+        if(array_key_exists($connection->getRemoteIp(),$clients)){ //必须是之前验证通过的客户端
+            $client = new \GuzzleHttp\Client();
+            switch ($data['typeInfo']){
+                case 1:
+
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+            }
         }
     }elseif($data['type'] == 'msg'){
         foreach($ws_worker->connections as $conn)
