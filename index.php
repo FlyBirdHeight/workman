@@ -41,10 +41,9 @@ function handle_message($connection, $data)
 {
     global $ws_worker,$clients;
     $data = json_decode($data,true);
-    print_r($data['type']);
+    $ip = $connection->getRemoteIp();
+    $port = $connection->getRemotePort();
     if($data['type'] == 'register'){ //代表是客户端认证
-        $ip = $connection->getRemoteIp();
-        $port = $connection->getRemotePort();
         if(!array_key_exists($ip,$clients)){ //必须是之前没有注册过
             $clients[$ip.':'.$port] = ['ipp'=>$ip.':'.$port,'name'=>$data['shopInfo']['id'],'conn'=>$connection,'Authorization'=>$data['token'],'userInfo'=>$data['userInfo']];
             $content = json_encode(['user'=>$data,'notice'=>'success']);
@@ -63,7 +62,9 @@ function handle_message($connection, $data)
         }
     }elseif ($data['type'] == 'getInfo'){
         if(array_key_exists($connection->getRemoteIp(),$clients)){ //必须是之前验证通过的客户端
-            $client = new \GuzzleHttp\Client();
+            $data01 = $clients[$ip.':'.$port];
+            print_r($data01);
+            $client = new \GuzzleHttp\Client(['headers'=>['Authorization'=>'']]);
             switch ($data['typeInfo']){
                 case 1:
 
