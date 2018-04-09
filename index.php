@@ -64,9 +64,10 @@ function handle_message($connection, $data)
         if(array_key_exists($ip.':'.$port,$clients)){ //必须是之前验证通过的客户端
             $data01 = $clients[$ip.':'.$port];
             print_r($data01['Authorization']);
-//            $client = new \GuzzleHttp\Client(['headers'=>['Authorization'=>$data01['token']]]);
+            $client = new \GuzzleHttp\Client(['headers'=>['Authorization'=>$data01['Authorization']]]);
             switch ($data['typeInfo']){
                 case 1:
+                    $data01['conn']->send(json_encode(['status'=>'success']));
                     break;
                 case 2:
                     break;
