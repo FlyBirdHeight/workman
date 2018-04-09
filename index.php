@@ -41,6 +41,7 @@ function handle_message($connection, $data)
 {
     global $ws_worker,$clients;
     $data = json_decode($data,true);
+    print_r($data);
     $ip = $connection->getRemoteIp();
     $port = $connection->getRemotePort();
     if($data['type'] == 'register'){ //代表是客户端认证
@@ -64,10 +65,9 @@ function handle_message($connection, $data)
         if(array_key_exists($connection->getRemoteIp(),$clients)){ //必须是之前验证通过的客户端
             $data01 = $clients[$ip.':'.$port];
             print_r($data01);
-            $client = new \GuzzleHttp\Client(['headers'=>['Authorization'=>'']]);
+            $client = new \GuzzleHttp\Client(['headers'=>['Authorization'=>$data01['token']]]);
             switch ($data['typeInfo']){
                 case 1:
-
                     break;
                 case 2:
                     break;
