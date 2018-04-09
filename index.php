@@ -41,7 +41,6 @@ function handle_message($connection, $data)
 {
     global $ws_worker,$clients;
     $data = json_decode($data,true);
-    print_r($data);
     $ip = $connection->getRemoteIp();
     $port = $connection->getRemotePort();
     if($data['type'] == 'register'){ //代表是客户端认证
@@ -62,6 +61,7 @@ function handle_message($connection, $data)
             }
         }
     }elseif ($data['type'] == 'getInfo'){
+        print_r($data['type']);
         if(array_key_exists($connection->getRemoteIp(),$clients)){ //必须是之前验证通过的客户端
             $data01 = $clients[$ip.':'.$port];
             print_r($data01);
