@@ -26,6 +26,7 @@ class ComposerStaticInitfc52c574ec44db90fa85eaff5ad51da1
             'GuzzleHttp\\Psr7\\' => 16,
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
+            'GatewayWorker\\' => 14,
         ),
     );
 
@@ -49,6 +50,10 @@ class ComposerStaticInitfc52c574ec44db90fa85eaff5ad51da1
         'GuzzleHttp\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
+        ),
+        'GatewayWorker\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/workerman/gateway-worker/src',
         ),
     );
 

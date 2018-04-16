@@ -8,14 +8,12 @@
     "homepage": "http://www.workerman.net",
     "license": "MIT",
     "description": "An asynchronous event driven PHP framework for easily building fast, scalable network applications.",
-    "authors": [
-        {
-            "name": "walkor",
-            "email": "walkor@workerman.net",
-            "homepage": "http://www.workerman.net",
-            "role": "Developer"
-        }
-    ],
+    "authors": [{
+        "name": "walkor",
+        "email": "walkor@workerman.net",
+        "homepage": "http://www.workerman.net",
+        "role": "Developer"
+    }],
     "support": {
         "email": "walkor@workerman.net",
         "issues": "https://github.com/walkor/workerman/issues",
@@ -25,7 +23,8 @@
     },
     "require": {
         "php": ">=5.3",
-        "guzzlehttp/guzzle": "^6.3@dev"
+        "guzzlehttp/guzzle": "^6.3@dev",
+        "workerman/gateway-worker": "dev-master"
     },
     "suggest": {
         "ext-event": "For better performance. "

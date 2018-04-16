@@ -8,9 +8,8 @@ date_default_timezone_set("Asia/Shanghai");
 Worker::$stdoutFile = '/tmp/stdout.log';
 Worker::$logFile = '/tmp/workerman.log';
 $ws_worker->reloadable = true;
-define('HEARTBEAT_TIME', 60);
+define('HEARTBEAT_TIME', 30);
 $client = [];
-
 $ws_worker->onWorkerStart = function($ws_worker)
 {
     echo "Worker starting...\n";
@@ -99,19 +98,12 @@ function handle_close($connection)
     global $ws_worker,$clients;
     unset($clients[$connection->getRemoteIp().':'.$connection->getRemotePort()]);
     echo "用户退出(userId:$connection->uid)\n";
-//    foreach($ws_worker->connections as $conn)
-//    {
-//        $conn->send("user[{$connection->uid}] 退出了聊天室\n");
-//        echo "用户退出(userId:$connection->uid)\n";
-//    }
 }
 
 
-
-$ws_worker->count = 1;
+$ws_worker->count = 2;
 $ws_worker->name = '李景秋测试的workman使用';
 $ws_worker->onConnect = 'handle_connection';
 $ws_worker->onMessage = 'handle_message';
 $ws_worker->onClose = 'handle_close';
-
 Worker::runAll();
