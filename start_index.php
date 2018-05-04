@@ -49,13 +49,13 @@ function handle_message($connection, $data)
             echo $ip .':'.$port.'==>'.$data['userInfo']['id'] .'==>login' . PHP_EOL;
             syncUsers();
         }
-    }elseif($data['type'] == 'notify'){ //代表是客户端发送的通知消息
+    }elseif($data['msg']['type'] == 'notify'){ //代表是客户端发送的通知消息
 //        if(array_key_exists($ip.':'.$port,$clients)){ //必须是之前验证通过的客户端
 
-            echo 'get notify:' .$data['notifyInfo'] .PHP_EOL; //这是为了演示,控制台打印信息
+            echo 'get notify:' .$data['msg']['notifyInfo'] .PHP_EOL; //这是为了演示,控制台打印信息
             foreach($ws_worker->connections as $conn)
             {
-                $messages = json_encode(['date'=>date("Y-m-d h:i:s"),'notice'=>$data['notifyInfo']]);
+                $messages = json_encode(['date'=>date("Y-m-d h:i:s"),'notice'=>$data['msg']['notifyInfo']]);
                 $conn->send($messages);
             }
 //        }
