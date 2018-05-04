@@ -42,7 +42,7 @@ function handle_message($connection, $data)
     echo $data;
     if($data['type'] == 'register'){ //代表是客户端认证
         if(!array_key_exists($ip.':'.$port,$clients)){ //必须是之前没有注册过
-            $clients[$ip.':'.$port] = ['ipp'=>$ip.':'.$port,'name'=>$data['shopInfo']['id'],'conn'=>$connection,'Authorization'=>$data['token'],'userInfo'=>$data['userInfo']];
+            $clients[$ip.':'.$port] = ['ipp'=>$ip.':'.$port,'name'=>$data['shopInfo']['id'],'conn'=>$connection,'userInfo'=>$data['userInfo']];
             $content = json_encode(['user'=>$data,'notice'=>'success']);
             $connection->send($content);
             echo $ip .':'.$port.'==>'.$data['userInfo']['id'] .'==>login' . PHP_EOL;
