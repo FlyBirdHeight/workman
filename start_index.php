@@ -49,14 +49,14 @@ function handle_message($connection, $data)
             syncUsers();
         }
     }elseif($data['type'] == 'notify'){ //代表是客户端发送的通知消息
-        if(array_key_exists($ip.':'.$port,$clients)){ //必须是之前验证通过的客户端
-            echo 'get notify:' .$data['notifyInfo']['content'] .PHP_EOL; //这是为了演示,控制台打印信息
+//        if(array_key_exists($ip.':'.$port,$clients)){ //必须是之前验证通过的客户端
+            echo 'get notify:' .$data['notifyInfo'] .PHP_EOL; //这是为了演示,控制台打印信息
             foreach($ws_worker->connections as $conn)
             {
-                $messages = json_encode(['date'=>date("Y-m-d h:i:s"),'notice'=>$data['notifyInfo']['content']]);
+                $messages = json_encode(['date'=>date("Y-m-d h:i:s"),'notice'=>$data['notifyInfo']]);
                 $conn->send($messages);
             }
-        }
+//        }
     }elseif ($data['type'] == 'getInfo'){
         if(array_key_exists($ip.':'.$port,$clients)){ //必须是之前验证通过的客户端
             $data01 = $clients[$ip.':'.$port];
