@@ -39,6 +39,7 @@ function handle_message($connection, $data)
     $data = json_decode($data,true);
     $ip = $connection->getRemoteIp();
     $port = $connection->getRemotePort();
+    print_r($data);
 //    echo $data;
     if($data['type'] == 'register'){ //代表是客户端认证
         if(!array_key_exists($ip.':'.$port,$clients)){ //必须是之前没有注册过
@@ -50,6 +51,7 @@ function handle_message($connection, $data)
         }
     }elseif($data['type'] == 'notify'){ //代表是客户端发送的通知消息
 //        if(array_key_exists($ip.':'.$port,$clients)){ //必须是之前验证通过的客户端
+
             echo 'get notify:' .$data['notifyInfo'] .PHP_EOL; //这是为了演示,控制台打印信息
             foreach($ws_worker->connections as $conn)
             {
