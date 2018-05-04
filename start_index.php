@@ -39,6 +39,7 @@ function handle_message($connection, $data)
     $data = json_decode($data,true);
     $ip = $connection->getRemoteIp();
     $port = $connection->getRemotePort();
+    echo $data;
     if($data['type'] == 'register'){ //代表是客户端认证
         if(!array_key_exists($ip.':'.$port,$clients)){ //必须是之前没有注册过
             $clients[$ip.':'.$port] = ['ipp'=>$ip.':'.$port,'name'=>$data['shopInfo']['id'],'conn'=>$connection,'Authorization'=>$data['token'],'userInfo'=>$data['userInfo']];
